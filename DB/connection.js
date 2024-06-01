@@ -7,8 +7,15 @@ export const sequelizeInstance = new Sequelize('platform', 'root', '', {
 
 
 export const testConnection=async()=>{
+
     try {
-        await sequelizeInstance.authenticate();
+        sequelizeInstance.authenticate()
+        .then(() => {
+            console.log('Database connection has been established successfully.');
+        })
+        .catch(error => {
+            console.error('Unable to connect to the database:', error);
+        });
         console.log('testConnection has been established successfully.');
       } catch (error) {
         console.error('Unable to connect to the database:', error);
