@@ -12,7 +12,7 @@ const port = process.env.PORT || 3004
 app.use('/user',userRouter)
 dbConnection()
 app.listen(port,()=>{
-    console.log('runing on port 3004');
+    console.log(`runing on port ${port}`);
 })
 
 
