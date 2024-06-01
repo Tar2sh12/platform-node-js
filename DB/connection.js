@@ -2,7 +2,7 @@ import { Sequelize } from "sequelize";
 
 export const sequelizeInstance = new Sequelize('platform', 'root', '', {
     host: 'localhost',
-    dialect: 'mysql'/* one of 'mysql' | 'postgres' | 'sqlite' | 'mariadb' | 'mssql' | 'db2' | 'snowflake' | 'oracle' */
+    dialect: 'mysql',/* one of 'mysql' | 'postgres' | 'sqlite' | 'mariadb' | 'mssql' | 'db2' | 'snowflake' | 'oracle' */
 });
 
 
@@ -11,12 +11,11 @@ export const testConnection=async()=>{
     try {
         sequelizeInstance.authenticate()
         .then(() => {
-            console.log('Database connection has been established successfully.');
+            console.log('Database testConnection has been established successfully.');
         })
         .catch(error => {
             console.error('Unable to connect to the database:', error);
         });
-        console.log('testConnection has been established successfully.');
       } catch (error) {
         console.error('Unable to connect to the database:', error);
     }
