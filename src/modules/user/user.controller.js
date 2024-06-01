@@ -33,3 +33,8 @@ export const checkUser = async (req, res, next) => {
     }
   });
 };
+
+export const getAllUsers = async(req,res,next)=>{
+  const allUsers= await User.findAll()
+  res.json(allUsers)
+}
