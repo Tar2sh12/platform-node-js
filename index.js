@@ -2,16 +2,16 @@ import express, { json } from 'express';
 const app = express();
 import { dbConnection } from './DB/connection.js';
 import userRouter from './src/modules/user/user.routes.js';
+import postRouter from './src/modules/post/post.routes.js';
+import commentRouter from './src/modules/comment/comment.routes.js';
 import cors from 'cors';
-import Post from './DB/models/Post.model.js'
-import Comment from './DB/models/comment.model.js'
 app.use(cors());
 app.use(json())
 const port = process.env.PORT || 3004
 app.use('/user',userRouter)
+app.use('/post',postRouter)
+app.use('/comment',commentRouter)
 dbConnection()
-Post
-Comment
 app.listen(port,()=>{
     console.log(`runing on port ${port}`);
 })
