@@ -17,27 +17,28 @@ export const createComment = async (req, res, next) => {
   res.json({ message: newComment });
 };
 
-
-
-export const getCommentsOfSpecificPostsOfSpecificUser = async (req, res, next) => {
+export const getCommentsOfSpecificPostsOfSpecificUser = async (req,res,next) => {
   const { id } = req.params;
   const specificComment = await comment.findByPk(id);
 
   const getSpecificDetails = await User.findAll({
-    include: [{ model: Post, required: true, where: { auther: id } ,include:[{model:comment,required:true,where:{UserId:id}}] }],
-    where: { id: id }
+    include: [
+      {
+        model: Post,
+        required: true,
+        where: { auther: id },
+        include: [{ model: comment, required: true, where: { UserId: id } }],
+      },
+    ],
+    where: { id: id },
   });
   res.json({ msg: getSpecificDetails });
 };
-
-
 
 export const getAllComments = async (req, res, next) => {
   const AllComments = await comment.findAll();
   res.json(AllComments);
 };
-
-
 
 export const deleteComment = async (req, res, next) => {
   const { id } = req.params;
@@ -49,17 +50,17 @@ export const deleteComment = async (req, res, next) => {
   res.json({ msg: deletedComment });
 };
 
-
-
 export const updateComment = async (req, res, next) => {
   const { id } = req.params;
   const { content } = req.body;
-  if(!content){
-    return res.json("you entered wrong fields to be updated")
+  if (!content) {
+    return res.json("you entered wrong fields to be updated");
   }
-  const excludedColumns = ['createdAt', 'updatedAt'];
-  const specificComment = await comment.findByPk(id, {attributes: { exclude: excludedColumns }});
-  specificComment["content"]=content;
+  const excludedColumns = ["createdAt", "updatedAt"];
+  const specificComment = await comment.findByPk(id, {
+    attributes: { exclude: excludedColumns },
+  });
+  specificComment["content"] = content;
   const updated = await specificComment.save();
-  res.json({ msg: updated});
+  res.json({ msg: updated });
 };
